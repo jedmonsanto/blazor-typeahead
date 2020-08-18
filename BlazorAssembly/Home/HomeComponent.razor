@@ -1,0 +1,38 @@
+﻿@page "/"
+@using BlazorAssembly.Home.Models
+
+<h3>HomeComponent</h3>
+
+<form>
+    <label class="radio-inline">
+        <input type="radio" name="optradio" checked="@(SearchType == 1)" @onchange="@onChangeAnimal"> Anime API
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="optradio" checked="@(SearchType == 2)" @onchange="@onChangeJob"> Job API (not functional yet)
+    </label>
+
+    @if (this.SearchType == 1)
+    {
+        <Autosuggestion SearchType="SearchType"
+                        Url="@Url"
+                        TElement="Anime"
+                        >
+            <RenderSelectedTemplate>
+                @context.title
+            </RenderSelectedTemplate>
+            <RenderResultTemplate>
+                @context.title
+            </RenderResultTemplate>
+        </Autosuggestion>
+    }
+    else
+    {
+        <Autosuggestion SearchType="SearchType"
+                        Url="@Url"
+                        TElement="Job">
+            <RenderSelectedTemplate>@context.Name</RenderSelectedTemplate>
+            <RenderResultTemplate>@context.Name</RenderResultTemplate>
+        </Autosuggestion>
+    }
+
+</form>

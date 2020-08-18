@@ -1,0 +1,44 @@
+﻿@page "/List"
+@inject IJSRuntime _jsRuntime
+@using Newtonsoft.Json
+<h3>List Component</h3>
+
+@if (Data == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Episodes</th>
+                <th>Rated</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Data)
+            {
+                <tr>
+                    <td>@item.title</td>
+                    <td>@item.episodes</td>
+                    <td>@item.rated</td>
+                    <td>@item.type</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<BlazorAssembly.Home.Models.Anime> Data { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var items = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "LocalSuggestions");
+        Data = JsonConvert.DeserializeObject<List<BlazorAssembly.Home.Models.Anime>>(items);
+    }
+}

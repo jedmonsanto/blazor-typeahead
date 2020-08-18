@@ -1,0 +1,11 @@
+﻿@typeparam TElement
+@inject HttpClient _client
+@using Blazored.Typeahead
+
+<h3>Autosuggestion</h3>
+<BlazoredTypeahead SearchMethod="onSearch" @bind-Value="SelectedItem">
+    <SelectedTemplate>@RenderSelectedTemplate(context)</SelectedTemplate>
+    <ResultTemplate>
+        @RenderResultTemplate(context)
+    </ResultTemplate>
+</BlazoredTypeahead>
